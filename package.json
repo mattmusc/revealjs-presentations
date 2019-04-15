@@ -1,0 +1,20 @@
+{
+  "name": "presentations",
+  "version": "1.0.0",
+  "description": "Repository for presentations made with Reveal.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "d3js",
+    "node",
+    "reveal.js"
+  ],
+  "author": "mattmusc",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "reveal.js": "^3.8.0"
+  }
+}

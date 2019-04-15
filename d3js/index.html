@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>Introduzione a D3.js</title>
+
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/reveal.css">
+  <link rel="stylesheet" href="../css/theme/black.css">
+
+  <link rel="stylesheet" href="css/custom.css">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="../lib/css/tomorrow-night.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? '../css/print/pdf.css' : '../css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <section>
+      <h1><span style="color: #0d99a5">D3</span>.js</h1>
+
+      <h4>Matteo Muscella</h4>
+
+      <p>11 Aprile 2019</p>
+
+      <img src="images/logo_d3.png" alt="d3-logo.png" style="width: 65%;"/>
+    </section>
+
+    <section>
+      <h2>Cos'è D3.js?</h2>
+
+      <p>Una libreria Javascript che permette di manipolare il DOM e in particolare l'SVG.</p>
+      <p>Creata da Mike Bostock - ex developer @nytgraphics - The New York Times Graphics Department.</p>
+      <a target="_blank" href="https://github.com/d3/d3">d3.js on github</a>
+    </section>
+
+    <section>
+      <h2>Agenda</h2>
+
+      <p class="fragment">
+        Selezioni
+      </p>
+
+      <p class="fragment">
+        Data joins & General Update Pattern
+      </p>
+
+      <p class="fragment">
+        Scale <span class="fragment"><em>continue, sequenziali, a bande,...</em></span>
+      </p>
+
+      <p class="fragment">
+        Assi
+      </p>
+
+    </section>
+
+    <section>
+      <h2>Agenda - dettagli</h2>
+
+      <span class="fragment">
+        <p>
+          Selezioni
+        </p>
+        <pre><code>d3.select(), d3.selectAll()</code></pre>
+      </span>
+
+      <span class="fragment">
+        <p>
+          Data joins & General Update Pattern
+        </p>
+        <pre><code>selection.data()</code></pre>
+        <pre><code>selection.[enter, merge, exit]()</code></pre>
+      </span>
+
+      <span class="fragment">
+        <p>
+          Scale <span class="fragment"><em>continue, sequenziali, a bande,...</em></span>
+        </p>
+      </span>
+      <span class="fragment">
+        <pre><code>d3.scale[Linear, Pow, Log, Time, Sequential, Band]()</code></pre>
+      </span>
+
+      <span class="fragment">
+        <p>
+          Assi
+        </p>
+        <pre><code>d3.axis[Top, Right, Bottom, Left]()</code></pre>
+      </span>
+
+    </section>
+
+    <section>
+
+      <img src="images/show-us-a-demo.jpg" alt="show-us-a-demo.jpg" style="width: 90%;">
+
+      <a target="_blank" href="https://www.google.it/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwim2eupksDhAhXLy6QKHT4pDKEQjRx6BAgBEAU&url=https%3A%2F%2Fslideplayer.com%2Fslide%2F6848889%2F&psig=AOvVaw2jfpbTUw7LPnoI1yvCO1Z2&ust=1554800428334766"
+          style="font-size: 0.28em;">
+        https://www.google.it/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwim2eupksDhAhXLy6QKHT4pDKEQjRx6BAgBEAU&url=https%3A%2F%2Fslideplayer.com%2Fslide%2F6848889%2F&psig=AOvVaw2jfpbTUw7LPnoI1yvCO1Z2&ust=1554800428334766
+      </a>
+
+    </section>
+
+    <section class="links">
+
+      <h2>Assaggi di D3.js</h2>
+
+      <a target="_blank" href="https://mm-cryptocurrencies.herokuapp.com">Cryptocurrencies - mattmusc :)</a>
+      <p></p>
+      <a target="_blank" href="https://bl.ocks.org/kerryrodden/766f8f6d31f645c39f488a0befa1e3c8">Sequences Sunburst</a>
+      <p></p>
+      <a target="_blank" href="https://www.nytimes.com/interactive/2014/upshot/buy-rent-calculator.html">Buy - Rent Calculator (Mike Bostock)</a>
+      <p></p>
+      <a target="_blank" href="https://archive.nytimes.com/www.nytimes.com/interactive/2013/04/08/business/global/asia-map.html">NY Times - GDP Growth</a>
+      <p></p>
+      <a target="_blank" href="http://research.google.com/bigpicture/music/">Google Music Timeline</a>
+      <p></p>
+      <a target="_blank" href="https://qz.com/296941/interactive-graphic-every-active-satellite-orbiting-earth/">Every satellite orbiting</a>
+      <p></p>
+      <a target="_blank" href="http://twitter.github.io/interactive/sotu2014/#p1">Obama's 2014 State of the Union reactions on Twitter</a>
+      <p></p>
+      <a target="_blank" href="https://www.cloudred.com/labprojects/nyctrees/#about">NYC Street Trees</a>
+      <p></p>
+      <a target="_blank" href="http://bl.ocks.org/nbremer/6599644129c034d0cb17fcdc452c310b">Lord of The Rings - Interactive Loom</a>
+
+    </section>
+
+<!--    <section>-->
+<!--      <h2>SVG questo sconosciuto</h2>-->
+<!--      <img src="images/svg-coordinates-system.png" alt="svg-coordinate-system.png" style="width: 65%;">-->
+<!--    </section>-->
+
+    <section>
+
+      <h2>Selezioni - 1</h2>
+
+      <p>I metodi di selezione accettano qualunque <b>stringa selettore W3C</b>.</p>
+
+      <p><code>d3.select()</code> ritorna un array (di array) con il primo elemento che corrisponde al selettore.</p>
+
+      <pre><code>d3.select("body")</code></pre>
+      <pre><code>d3.select(".a-class")</code></pre>
+      <pre><code>d3.select("#an-id")</code></pre>
+
+    </section>
+
+    <section>
+
+      <h2>Selezioni - 2</h2>
+
+      <p><code>d3.selectAll()</code> ritorna un array (di array) con tutti gli elementi corrispondenti al selettore.</p>
+
+      <pre><code>d3.selectAll("body")</code></pre>
+      <pre><code>d3.selectAll(".a-class")</code></pre>
+      <pre><code>d3.selectAll("#an-id")</code></pre>
+
+      <a href="https://bost.ocks.org/mike/selection/" target="_blank">How selections work? (M. Bostock)</a>
+
+    </section>
+
+    <section id="selections">
+
+      <h2>Selezioni - 3</h2>
+
+      <pre><code>const data = [ 5, 25, 11, 9 ];
+
+// d3.select() ritorna una reference al primo elemento
+// identificato dal selettore.
+const svg = d3.select("body")
+  .append("svg")
+  .attr("width", 800)
+  .attr("heigth", 450);
+
+// svg.selectAll() ritorna n reference a quanti
+// elementi circle trova dentro al tag svg.
+const circles = svg.selectAll("circle");
+</code></pre>
+
+      <a href="https://jsfiddle.net/mattmusc/238qjrh5/" target="_blank">Fiddle</a>
+
+    </section>
+
+    <section>
+
+      <h2>Operazioni sulle selezioni</h2>
+
+      <p>È possibile eseguire diverse operazioni sulle selezioni:</p>
+
+      <pre><code>selection.attr() // get / set di un attributo</code></pre>
+      <pre><code>selection.style() // get / set di una property css</code></pre>
+
+      <p>Queste sono quelle più comuni e quelle che ci serviranno.</p>
+    </section>
+
+    <section>
+
+      <h4>Perché un'altra libreria che permette di fare quello che JQuery fa già?</h4>
+
+    </section>
+
+    <section>
+
+      <h2>Data join - 1</h2>
+
+      <p><em>Nota:</em> consideriamo un documento con <em>body</em> vuoto</p>
+
+      <pre><code>const selection = d3.select("body").selectAll("p");</code></pre>
+
+      <p>Cosa succede quando eseguiamo</p>
+      <pre><code>selection.data([1, 2, 4])</code></pre>
+      <p>?</p>
+
+      <p class="fragment">La chiamata al metodo <em>data</em> effettua una <i>data-join</i> tra</p>
+      <ul>
+      <li class="fragment">gli elementi presenti nel DOM</li>
+      <li class="fragment">ciascun dato dell'array, rispettando l'ordine.</li>
+      </ul>
+
+    </section>
+
+    <section>
+
+      <img src="images/what.jpg" alt="what.jpg" style="width: 70%;">
+      
+    </section>
+    
+    <section>
+
+      <h2>Data join - 2</h2>
+
+      <p><em>Nota:</em> consideriamo un file html con <em>body</em> <span style="color: #0d99a5">vuoto</span></p>
+
+      <pre><code>const selection = d3.select("body").selectAll("p");</code></pre>
+
+      <p>Cosa succede quando eseguiamo</p>
+      <pre><code>selection.data([1, 2, 4])</code></pre>
+      <p>?</p>
+
+      <p class="fragment">La chiamata al metodo <em>data</em> effettua una <i>data-join</i> tra</p>
+      <ul>
+        <li class="fragment">gli elementi presenti (o in <b style="color: #0d99a5">futuro</b> presenti) nel DOM</li>
+        <li class="fragment">ciascun dato dell'array, rispettando l'ordine.</li>
+      </ul>
+
+    </section>
+
+    <section>
+
+      <h2>Data join - 3</h2>
+
+      <p>Dopo la chiamata al metodo <em style="color: #0d99a5">data</em> avrò accesso a 3 metodi:</p>
+
+      <ul class="fragment">
+        <li>enter()</li>
+        <li>exit()</li>
+        <li>merge()</li>
+      </ul>
+
+    </section>
+
+    <section>
+      <section>
+
+        <h2>selection.enter() selection</h2>
+
+        <p>Nella enter() selection vi sono <em style="color: #0d99a5;">tutti</em> gli elementi dello stesso tipo di quelli della selezione e <em style="color: #0d99a5">non</em> presenti nel DOM.</p>
+
+      </section>
+
+      <section>
+
+        <h2>selection.exit() selection</h2>
+
+        <p>Nella exit() selection vi sono <em style="color: #0d99a5">tutti</em> gli elementi presenti nel DOM <em style="color: #0d99a5;">rimossi</em> dall'array passato al metodo <em style="color: #0d99a5">data()</em></p>
+
+      </section>
+
+      <section>
+
+        <h2>selection.merge(another)</h2>
+
+        <p>Questo metodo, data una selezione, ne ritorna un'altra che <em style="color: #0d99a5">contiene gli elementi della mia selezione</em>  (la selezione su cui chiamo il metodo) e <em style="color: #0d99a5">quelli della selezione passata</em> nell'argomento.</p>
+
+      </section>
+    </section>
+
+<!--    <section>-->
+<!--      <h2>SVG o Canvas</h2>-->
+
+<!--      <a href="https://docs.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/samples/gg193983(v=vs.85)">SVG vs canvas: how to choose (Microsoft)</a>-->
+<!--      <img src="images/canvasVSsvg.png" alt="canvasVSsvg" style="width: 75%;">-->
+
+<!--    </section>-->
+
+<!--    <section>-->
+<!--      <img src="images/it-depends.jpeg" alt="it-depends.jpeg" style="width: 50%;">-->
+<!--    </section>-->
+
+    <section>
+      <h2>Scale: concetto base</h2>
+      <p>una scala è una funzione che trasforma un valore da un intervallo - dominio - ad un altro intervallo - range.</p>
+      <img src="images/d3scale1.png" alt="d3scale1.png" style="width: 45%;">
+
+      <p></p>
+      <a class="source-links" href="http://www.jeromecukier.net/2011/08/11/d3-scales-and-color/">Source</a>
+
+      <a href="https://github.com/d3/d3-scale">d3-scale</a>
+    </section>
+
+    <section>
+      <h2>Le scale in D3.js - esempi (1)</h2>
+
+      <pre><code>d3.scaleLinear().domain([10, 130]).range([0, 960]);</code></pre>
+      <pre><code>d3.scalePow().domain([10, 130]).range([0, 960]);</code></pre>
+      <pre><code>d3.scaleLog().domain([10, 130]).range([0, 960]);</code></pre>
+
+      <p></p>
+
+      <pre><code>d3.scaleTime()
+  .domain([new Date(2000, 0, 1), new Date(2000, 0, 2)])
+  .range([0, 960]);</code></pre>
+
+      <pre><code>d3.scaleQuantize()
+  .domain([0, 1])
+  .range(["brown", "steelblue"]);  // range discreto</code></pre>
+
+      <pre><code>// dominio e range discreti
+d3.scaleOrdinal().domain(['A', 'B']).range(['blue', 'red'])</code></pre>
+
+    </section>
+
+    <section>
+      <h2>Le scale in D3.js - esempi (2)</h2>
+
+      <img src="https://raw.githubusercontent.com/d3/d3-scale/master/img/band.png" alt="d3-scale-band.png">
+
+      <pre><code>d3.scaleBand()
+  .domain(["Alice", "Bob", "Sergio"])
+  .range([0, 800])
+  .padding(0.2);</code></pre>
+    </section>
+
+    <section>
+      <h2>Assi</h2>
+
+      <p>È possibile creare gli assi in questo modo:</p>
+      <pre><code>const xAxisGroup = g.append("g")
+  .attr("class", "x axis")
+  .attr("transform", "translate(0," + height +")");
+
+// nella funzione di update:
+// aggiorno la scala
+x.domain(data.map(function(d){ return d.month }));
+
+// chiamo l'asse passandogli la scala aggiornata
+const xAxisCall = d3.axisBottom(x);
+xAxisGroup.call(xAxisCall);</code></pre>
+
+      <p>Posso sostituire
+      <code>d3.axisBottom()</code> con <code>Left, Right, Top</code></p>
+    </section>
+
+    <section class="links">
+      <h2>Data sets</h2>
+
+      <a href="https://www.kaggle.com">Kaggle - by Google</a>
+      <p></p>
+      <a href="https://www.kaggle.com/jsphyg/weather-dataset-rattle-package" target="_blank">Rain in Australia</a>
+    </section>
+
+    <section>
+      <h2>Esempio 1 - C'eran tre cerchi...</h2>
+
+      <a href="https://jsfiddle.net/mattmusc/238qjrh5/" target="_blank">Fiddle</a>
+    </section>
+
+    <section>
+      <h2>Esempio 2 - Scale</h2>
+
+      <a href="https://jsfiddle.net/mattmusc/7tb0zmqx/" target="_blank">Fiddle</a>
+    </section>
+
+    <section class="links">
+      <h2>References</h2>
+
+      <a target="_blank" href="https://d3js.org">D3js.org</a>
+      <p></p>
+      <a target="_blank" href="https://github.com/d3/d3">d3.js on github</a>
+      <p></p>
+      <a target="_blank" href="https://bost.ocks.org/mike/">Mike Bostock Homepage</a>
+      <p></p>
+      <a target="_blank" href="https://bl.ocks.org">Bl.ocks.org</a>
+      <p></p>
+      <a target="_blank" href="https://blockbuilder.org/search">Blocksbuilder.org</a>
+    </section>
+
+  </div>
+</div>
+
+<script src="../node_modules/reveal.js/js/reveal.js"></script>
+<script src="../js/main.js"></script>
+
+</body>
+</html>

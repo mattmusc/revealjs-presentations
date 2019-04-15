@@ -1,0 +1,16 @@
+@import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700);
+
+.links p {
+    margin: 2px 0;
+}
+
+.links a {
+    font-size: 0.7em;
+}
+
+.source-links {
+    position: fixed !important;
+    bottom: 1px;
+    right: 1px;
+    font-size: 0.5em;
+}
